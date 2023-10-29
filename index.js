@@ -15,22 +15,43 @@ client.on('ready', () => {
     console.log('WhatsApp Web is ready!');
 });
 
-pikudHaoref.getActiveAlert(function (err, alert){
-    setTimeout(poll, interval);
-    if (err) {
-        return console.log('Retrieving active alert failed: ', err);
-    }
-    console.log('Currently active alert:');
+var poll = function () {
+    // Optional Israeli proxy if running outside Israeli borders
 
-    console.log(alert);
+    // Get currently active alert
+    // Example response:
+    // { 
+    //    type: 'missiles', 
+    //    cities: ['תל אביב - מזרח', 'חיפה - כרמל ועיר תחתית', 'עין גדי'],
+    //    instructions: 'היכנסו למבנה, נעלו את הדלתות וסגרו את החלונות'
+    // }
+    pikudHaoref.getActiveAlert(function (err, alert) {
+        // Schedule polling in X millis
+        setTimeout(poll, interval);
+        
+        // Log errors
+        if (err) {
+            return console.log('Retrieving active alert failed: ', err);
+        }
 
-    if(!JSON.parse(alert).type === 'none')
-    {
-        sendMessage(alert, groupId);
-    }
+        // Alert header
+        console.log('Currently active alert:');
 
-    console.log();
-});
+        // Log the alert (if any)
+        console.log(alert);
+
+        // Line break for readability
+        console.log();
+
+        if(!JSON.parse(alert).type === 'none')
+        {
+            sendMessage(alert, groupId);
+        }
+        
+    }, options);
+}
+
+poll();
 
 function sendMessage(message, groupId){
     client.sendMessage(groupId, message + `\n היכנסו למרחב המוגן ושהו בו כ10 דקות!`);
