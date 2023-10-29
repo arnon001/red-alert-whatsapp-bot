@@ -47,8 +47,8 @@ var poll = function () {
         {
             sendMessage(alert, groupId);
         }
-        
-    }, options);
+
+    });
 }
 
 poll();
