@@ -7,8 +7,9 @@ const url = 'https://www.oref.org.il/WarningMessages/alert/alerts.json';
 
 const client = new Client();
 
-client.on('qr', (qrCode) => {
-    qrcode.generate(qrCode, { small: true });
+client.on('qr', (qrCode, resolve) => {
+  console.log('QR Code received, please scan it.');
+  qr.generate(qrCode, { small: true }); // generates QR code
 });
 
 client.on('ready', () => {
@@ -31,11 +32,11 @@ async function checkAlerts() {
         });
 
         const json = response.data;
-        const locations = json.data.join('\n');
 
-        if (json.id !== prevId) {
+        if (json && json.data && Array.isArray(json.data) && json.id !== prevId) {
             prevId = json.id;
 
+            const locations = json.data.join('\n');
             const message = `**${json.title}**\n${json.desc}\n\n**יישובים**\n${locations}`;
 
             // Find the group chat where you want to send the message using the group invite link or phone number
@@ -43,10 +44,13 @@ async function checkAlerts() {
 
             chat.sendMessage(message);
             console.log(`[${new Date()}] Sent message to the group!`);
+        } else {
+            console.log('Invalid or empty data in the JSON response.');
         }
     } catch (error) {
         console.error(error);
     }
 }
+
 
 client.initialize();
