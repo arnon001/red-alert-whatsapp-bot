@@ -13,6 +13,7 @@ client.on('qr', (qrCode) => {
 
 client.on('ready', () => {
     console.log('WhatsApp Web is ready!');
+    poll();
 });
 
 var poll = function () {
@@ -43,15 +44,14 @@ var poll = function () {
         // Line break for readability
         console.log();
 
-        if(!JSON.parse(alert).type === 'none')
+        
+        if(!(JSON.parse(JSON.stringify(alert)).type === `'none'`))
         {
             sendMessage(alert, groupId);
         }
 
     });
 }
-
-poll();
 
 function sendMessage(message, groupId){
     client.sendMessage(groupId, message + `\n היכנסו למרחב המוגן ושהו בו כ10 דקות!`);
