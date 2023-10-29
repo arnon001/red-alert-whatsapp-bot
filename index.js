@@ -7,9 +7,8 @@ const url = 'https://www.oref.org.il/WarningMessages/alert/alerts.json';
 
 const client = new Client();
 
-client.on('qr', (qrCode, resolve) => {
-  console.log('QR Code received, please scan it.');
-  qr.generate(qrCode, { small: true }); // generates QR code
+client.on('qr', (qrCode) => {
+    qrcode.generate(qrCode, { small: true });
 });
 
 client.on('ready', () => {
@@ -51,6 +50,5 @@ async function checkAlerts() {
         console.error(error);
     }
 }
-
 
 client.initialize();
