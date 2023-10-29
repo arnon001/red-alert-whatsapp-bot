@@ -5,7 +5,7 @@
 2. fill the file.
 3. open cmd
 4. run `npm i -g yarn` (If you got yarn, you can skip this stage)
-5. step for ubuntu arm64 users **only!** run: `sudo apt install chromium`
+5. step for ubuntu arm64 users **only!** run: `sudo apt install chromium-browser`
 6. run `yarn install`
 7. run `yarn run start`
 
