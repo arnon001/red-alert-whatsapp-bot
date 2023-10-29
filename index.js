@@ -1,9 +1,9 @@
 const { Client } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
-const axios = require('axios').default;
 const config = require('./config.json');
-
-const url = 'https://www.oref.org.il/WarningMessages/alert/alerts.json';
+const pikudHaoref = require('pikud-haoref-api');
+const groupId = config.groupId;
+var interval = 5000;
 
 const client = new Client();
 
@@ -13,42 +13,27 @@ client.on('qr', (qrCode) => {
 
 client.on('ready', () => {
     console.log('WhatsApp Web is ready!');
-    checkAlerts();
-    setInterval(checkAlerts, 1500);
 });
 
-let prevId = '';
-
-async function checkAlerts() {
-    try {
-        const response = await axios.get(url, {
-            headers: {
-                Accept: 'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-                Referer: 'https://www.oref.org.il/12481-he/Pakar.aspx',
-            },
-            maxContentLength: Infinity,
-        });
-
-        const json = response.data;
-
-        if (json && json.data && Array.isArray(json.data) && json.id !== prevId) {
-            prevId = json.id;
-
-            const locations = json.data.join('\n');
-            const message = `**${json.title}**\n${json.desc}\n\n**יישובים**\n${locations}`;
-
-            // Find the group chat where you want to send the message using the group invite link or phone number
-            const chat = await client.getChatById(config.GID);
-
-            chat.sendMessage(message);
-            console.log(`[${new Date()}] Sent message to the group!`);
-        } else {
-            console.log('Invalid or empty data in the JSON response.');
-        }
-    } catch (error) {
-        console.error(error);
+pikudHaoref.getActiveAlert(function (err, alert){
+    setTimeout(poll, interval);
+    if (err) {
+        return console.log('Retrieving active alert failed: ', err);
     }
-}
+    console.log('Currently active alert:');
 
+    console.log(alert);
+
+    if(!JSON.parse(alert).type === 'none')
+    {
+        sendMessage(alert, groupId);
+    }
+
+    console.log();
+});
+
+function sendMessage(message, groupId){
+    client.sendMessage(groupId, message + `\n היכנסו למרחב המוגן ושהו בו כ10 דקות!`);
+    console.log('Message sent successfully to group:', groupId);
+}   
 client.initialize();
