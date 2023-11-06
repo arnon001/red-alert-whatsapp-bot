@@ -6,7 +6,7 @@ client.on('qr', (qrCode) => {
     qrcode.generate(qrCode, { small: true });
 });
 
-client.on('message', async message => {
+client.on('message', async (notification) => {
     // Get the chat ID from where the message was sent
     const chatId = notification.id.remote
     const groupChat = await client.getChatById(chatId)
