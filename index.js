@@ -7,6 +7,7 @@ var interval = 5000;
 
 const client = new Client();
 
+var alertCheck = "";
 client.on('qr', (qrCode) => {
     qrcode.generate(qrCode, { small: true });
 });
@@ -45,16 +46,22 @@ var poll = function () {
         console.log();
 
         
-        if(!(JSON.parse(JSON.stringify(alert)).type === `none`))
+        if(!(JSON.parse(JSON.stringify(alert)).type === `none`) && alertCheck !== alert)
         {
             sendMessage(alert, groupId);
+            alertCheck = alert;
         }
-
+        if (JSON.parse(JSON.stringify(alert)).type === `none`)
+        {
+            alertCheck = "";
+        }
     });
 }
 
-function sendMessage(message, groupId){
-    client.sendMessage(groupId, message + `\n היכנסו למרחב המוגן ושהו בו כ10 דקות!`);
+function sendMessage(alert, groupId) {
+    const message = `Alert Type: ${alert.type}\nCities: ${alert.cities}\nInstructions: ${alert.instructions}\nהיכנסו למרחב המוגן ושהו בו כ-10 דקות!`;
+
+    client.sendMessage(groupId, message);
     console.log('Message sent successfully to group:', groupId);
 }   
 client.initialize();
