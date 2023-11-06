@@ -8,15 +8,9 @@ client.on('qr', (qrCode) => {
 
 client.on('message', async message => {
     // Get the chat ID from where the message was sent
-    const chatId = message.from;
-
-    // Call your custom function or perform actions with the chat ID
-    handleChatId(chatId);
+    const chatId = notification.id.remote
+    const groupChat = await client.getChatById(chatId)
+    console.log(groupChat);
 });
 
 client.initialize();
-
-function handleChatId(chatId) {
-    // Your custom logic here to handle the chat ID
-    console.log('Message received from chat ID:', chatId);
-}
