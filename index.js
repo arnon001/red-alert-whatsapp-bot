@@ -51,7 +51,7 @@ var poll = function () {
             sendMessage(alert, groupId);
             alertCheck = alert;
         }
-        if (JSON.parse(JSON.stringify(alert)).type === `none`)
+        else if (JSON.parse(JSON.stringify(alert)).type === `none`)
         {
             alertCheck = "";
         }
@@ -59,9 +59,42 @@ var poll = function () {
 }
 
 function sendMessage(alert, groupId) {
-    const message = `Alert Type: ${alert.type}\nCities: ${alert.cities}\nInstructions: ${alert.instructions}\nהיכנסו למרחב המוגן ושהו בו כ-10 דקות!`;
+
+    const message = `סוג התראה: ${typeInHebrew(alert.type)}\nמקומות: ${alert.cities}\nהוראות: ${alert.instructions}\nהיכנסו למרחב המוגן ושהו בו כ-10 דקות!`;
 
     client.sendMessage(groupId, message);
     console.log('Message sent successfully to group:', groupId);
 }   
+
+function typeInHebrew (type) {
+    if(type = "missiles")
+        return "ירי טילים ורקטות";
+    else if (type = "radiologicalEvent")
+        return "אירוע רדיולוגי";
+    else if (type = "earthQuake")
+        return "רעידת אדמה";
+    else if (type = "tsunami")
+        return "צונאמי";
+    else if (type = "hostileAircraftIntrusion")
+        return "חדירת כלי טייס עויינים";
+    else if (type = "hazardousMaterials")
+        return "חומרים מסוכנים";
+    else if (type = "terroristInfiltration")
+        return "חשש לחדירת מחבלים";
+    else if (type = "missilesDrill")
+        return "אימון של ירי טילים ורקטות";
+    else if (type = "earthQuakeDrill")
+        return "אימון של רעידת אדמה";
+    else if (type = "radiologicalEventDrill")
+        return "אימון של אירוע רדיולוגי";
+    else if (type = "tsunamiDrill")
+        return "אימון של צונאמי";
+    else if (type = "hostileAircraftIntrusionDrill")
+        return "אימון של חדירת כלי טיס עויינים";
+    else if (type = "hazardousMaterialsDrill")
+        return "אימון של חומרים מסוכנים";
+    else if (type = "terroristInfiltrationDrill")
+        return "אימון של חדירת מחבלים";
+    return "לא ידוע";
+}
 client.initialize();
