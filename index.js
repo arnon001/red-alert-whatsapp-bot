@@ -60,7 +60,7 @@ var poll = function () {
 
 function sendMessage(alert, groupId) {
 
-    const message = `סוג התראה: ${typeInHebrew(alert.type)}\nמקומות: ${alert.cities}\nהוראות: ${alert.instructions}\nהיכנסו למרחב המוגן ושהו בו כ-10 דקות!`;
+    const message = `${typeInHebrew(alert.type)}\n${alert.cities}\n${alert.instructions}`;
 
     client.sendMessage(groupId, message);
     console.log('Message sent successfully to group:', groupId);
