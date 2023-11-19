@@ -18,4 +18,4 @@ the format should look like this: `972xxxxxxxxx-xxxxxxxxxx@g.us` for group and `
 You are more than welcomed to preform pull requests.
 
 # TODO
-[] Map
+[ ] Map
