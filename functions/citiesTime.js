@@ -1,0 +1,19 @@
+const pikudHaorefCitiesTime = require('pikud-haoref-api/citiesArchive');
+function groupCities(cities) {
+    const groupedCities = {};
+
+    // Assuming each city has a time, zone, latitude, and longitude associated with it
+    for (const city of cities) {
+        const cityData = pikudHaorefCitiesTime.find((cityData) => cityData.value === city);
+        const { time, zone, lat, lng } = cityData || { time: 'unknown', zone: 'unknown', lat: null, lng: null };
+
+        if (!groupedCities[zone]) {
+            groupedCities[zone] = [];
+        }
+
+        groupedCities[zone].push({ city, time, lat, lng });
+    }
+
+    return groupedCities;
+}
+module.exports = { groupCities };

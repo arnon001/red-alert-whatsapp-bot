@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node .",
-    "getchatid": "node getchatid.js"
+    "getchatid": "node functions/getchatid.js",
+    "testmessage": "node functions/testmsg.js"
   },
   "repository": {
     "type": "git",
@@ -21,12 +22,13 @@
     "bot"
   ],
   "author": "Arnon Hacohen <arnonhacohen123@gmail.com> (arnon001)",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/arnon001/red-alert-whatsapp-bot/issues"
   },
   "homepage": "https://github.com/arnon001/red-alert-whatsapp-bot#readme",
   "dependencies": {
+    "fs": "^0.0.1-security",
     "pikud-haoref-api": "^3.0.2",
     "qrcode-terminal": "^0.12.0",
     "whatsapp-web.js": "^1.23.0",

@@ -11,8 +11,11 @@
 
 
 ## Need the chat ID?
-    run `yarn run getchatid`
-    send a message in the group that you want to send to
-    the format should look like this: `972xxxxxxxxx-xxxxxxxxxx@g.us` for group and `972xxxxxxxxx@c.us` for private message (972 is the country code.)
+run `yarn run getchatid`
+send a message in the group that you want to send to
+the format should look like this: `972xxxxxxxxx-xxxxxxxxxx@g.us` for group and `972xxxxxxxxx@c.us` for private message (972 is the country code.)
 # Pull Requests
 You are more than welcomed to preform pull requests.
+
+# TODO
+[] Map

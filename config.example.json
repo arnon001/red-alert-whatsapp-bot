@@ -1,3 +1,4 @@
 {
-    "groupId": "INSERT CHAT ID HERE!"
+    "groupId": "INSERT CHAT ID HERE!",
+    "sendToUser": "INSERT USER ID HERE!"
 }
