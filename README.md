@@ -1,4 +1,5 @@
 # Red Alert Whatsapp bot!
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://ko-fi.com/arnon001)
 
 # how to run it yourself?
 1. Change config.example.json to config.json
