@@ -79,7 +79,7 @@ function sendMessage(alert, groupId) {
 
     // Create the message
     let message = `*🔴 צבע אדום (${formattedDate} | ${formattedTime})*\n`;
-    message += `סוג ההתרעה: ${typeInHebrew(alert.type)}\n`;
+    message += `סוג ההתראה: ${typeInHebrew(alert.type)}\n`;
 
     // Add cities and towns
     message += `ערים וישובים:\n`;
