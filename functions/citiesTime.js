@@ -5,7 +5,7 @@ function groupCities(cities) {
     // Assuming each city has a time, zone, latitude, and longitude associated with it
     for (const city of cities) {
         const cityData = pikudHaorefCitiesTime.find((cityData) => cityData.value === city);
-        const { time, zone, lat, lng } = cityData || { time: 'unknown', zone: 'unknown', lat: null, lng: null };
+        const { time, zone, lat, lng } = cityData || { time: 'לא ידוע', zone: 'לא ידוע', lat: null, lng: null };
 
         if (!groupedCities[zone]) {
             groupedCities[zone] = [];
