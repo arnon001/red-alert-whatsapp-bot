@@ -3,6 +3,7 @@ const qrcode = require('qrcode-terminal');
 const fs = require('fs');
 const pikudHaoref = require('pikud-haoref-api');
 const config = require('../config.json');
+const { typeInHebrew } = require('./typeInHebrew.js');
 const { groupCities } = require('./citiesTime.js');
 const user = config.sendToUser
 var interval = 5000;    
@@ -94,7 +95,7 @@ function sendMessage(alert, groupId) {
 
     // Create the message
     let message = `*🔴 צבע אדום (${formattedDate} | ${formattedTime})*\n`;
-    message += `סוג ההתראה: ${alert.type}\n`;
+    message += `סוג ההתרעה: ${typeInHebrew(alert.type)}\n`;
 
     // Add cities and towns
     message += `ערים וישובים:\n`;

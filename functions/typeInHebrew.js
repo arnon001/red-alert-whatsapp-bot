@@ -29,3 +29,4 @@ function typeInHebrew (type) {
         return "אימון של חדירת מחבלים";
     return "לא ידוע";
 }
+module.exports = { typeInHebrew };
