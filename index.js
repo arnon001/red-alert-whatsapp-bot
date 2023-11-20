@@ -43,8 +43,7 @@ var poll = function () {
             return console.log('Retrieving active alert failed: ', err);
         } 
 
-        // Line break for readability
-        console.log();
+        
 
         
         if(!(JSON.parse(JSON.stringify(alert)).type === `none`) && alertCheck !== alert)
@@ -92,5 +91,6 @@ function sendMessage(alert, groupId) {
     // Send the message
     client.sendMessage(groupId, message);
     console.log('Message sent successfully to group');
+    console.log();
 }
 client.initialize();
