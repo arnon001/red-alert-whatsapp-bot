@@ -2,9 +2,9 @@ const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const pikudHaoref = require('pikud-haoref-api');
 const fs = require('fs');
+const { typeInHebrew } = require('./functions/typeInHebrew.js');
 const config = require('./config.json');
-const { typeInHebrew } = require('./functions/typeInHebrew');
-const { groupCities } = require('./functions/citiesTime');
+const { groupCities } = require('./functions/citiesTime.js');
 const groupId = config.groupId;
 var interval = 5000;
 
