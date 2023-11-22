@@ -5,21 +5,21 @@
 1. Change config.example.json to config.json
 2. fill the file.
 3. open cmd
-4. run `npm i -g yarn` (If you got yarn, you can skip this stage)
-5. for ubuntu user see: [Click here!](#ubuntu-installation)
-6. if on windows run `curl -o helper.bat https://raw.githubusercontent.com/arnon001/red-alert-whatsapp-bot/main/helper.bat` in cmd and then run the file helper.bat to save some time breaking the head
-7. run `yarn install` if you have any errors, [click here!](#installing-errors)
-8. run `yarn run start`
+4. for ubuntu user see: [Click here!](#ubuntu-installation)
+5. if on windows run `curl -o helper.bat https://raw.githubusercontent.com/arnon001/red-alert-whatsapp-bot/main/helper.bat` in cmd and then run the file helper.bat to save some time breaking the head
+6. run `npm install` if you have any errors, [click here!](#installing-errors)
+7. run `npm start`
 
 
 ## Need the chat ID?
-run `yarn run getchatid`
+run `npm run getchatid`
 send a message in the group that you want to send to
 the format should look like this: `972xxxxxxxxx-xxxxxxxxxx@g.us` for group and `972xxxxxxxxx@c.us` for private message (972 is the country code.)
 # Pull Requests
 You are more than welcomed to preform pull requests.
 
 # Installing errors
+Make sure you got Node.JS 10.x since this isn't working on higher node version [Click Me to Download](https://nodejs.org/dist/latest-v10.x/)
 If you getting node-gyp errors make sure you installed visual studio 2022 community with desktop development with c++, and also python from the microsoft shop. [Click Here to it!](https://www.microsoft.com/store/productId/9PJPW5LDXLZ5?ocid=pdpshare)
 And also, follow this: [Click Me](https://github.com/Automattic/node-canvas/wiki/Installation:-Windows#2-installing-gtk-2) STEP 2 ONLY!
 
