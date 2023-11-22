@@ -3,3 +3,4 @@ node_modules
 /.wwebjs_cache
 session.json
 /.wwebjs_auth
+/temp
