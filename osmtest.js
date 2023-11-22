@@ -75,7 +75,7 @@ async function poll() {
 }
 
 async function generateLeafletMap(markers) {
-  const htmlContent = `
+const htmlContent = `
     <!DOCTYPE html>
     <html>
       <head>
@@ -87,7 +87,7 @@ async function generateLeafletMap(markers) {
         <div id="map" style="height: 100vh; width: 100%;"></div>
         <script>
           // Initialize the map
-          var map = L.map('map').setView([${markers[0].lat}, ${markers[0].lng}], 9); // Adjust the zoom level
+          var map = L.map('map').setView([${markers[0].lat}, ${markers[0].lng}], 13); // Adjust the zoom level
 
           // Add the OpenStreetMap tile layer
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -98,11 +98,11 @@ async function generateLeafletMap(markers) {
           ${markers.map(marker => `
             L.marker([${marker.lat}, ${marker.lng}]).addTo(map)
               .bindPopup('${marker.city}');
+            
+            // Add a polygon for each point
+            var polygonPoints${markers.indexOf(marker)} = [[${marker.lat}, ${marker.lng}]];
+            var polygon${markers.indexOf(marker)} = L.polygon(polygonPoints${markers.indexOf(marker)}, { color: 'red', fillOpacity: 0.3 }).addTo(map);
           `).join('')}
-
-          // Add polygons to surround the zone of the alarm
-          var polygonPoints = [${markers.map(marker => `[${marker.lat}, ${marker.lng}]`).join(',')}];
-          var polygon = L.polygon(polygonPoints, { color: 'red', fillOpacity: 0.3 }).addTo(map);
         </script>
       </body>
     </html>
