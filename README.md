@@ -28,6 +28,6 @@ for any other, please open an issue
 # Ubuntu Installation
 For all ubuntu run: `sudo apt-get install libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++`
 
-For ubuntu ARM064 run `sudo apt-get install chromium-browser`
+For ubuntu ARM64 run `sudo apt-get install chromium-browser`
 # TODO
 - [ ] Map
