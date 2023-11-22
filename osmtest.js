@@ -7,7 +7,8 @@ const { groupCities } = require('./functions/citiesTime.js');
 const config = require('./config.json');
 const puppeteer = require('puppeteer-extra');
 const stealthPlugin = require('puppeteer-extra-plugin-stealth');
-const L = require('leaflet')
+
+
 
 puppeteer.use(stealthPlugin());
 
@@ -68,25 +69,23 @@ async function generateLeafletMap(markers) {
 
   function generateZoneCode(zone, zoneMarkers) {
     const decodedZone = decodeURIComponent(zone);
+
+    const polygonCoordinates = zoneMarkers.map(marker => [marker.lat, marker.lng]);
+
     const encodedMarkers = zoneMarkers.map(marker => ({
       lat: marker.lat,
       lng: marker.lng,
       city: marker.city,
     }));
 
-    const bounds = zoneMarkers.reduce((acc, marker) => {
-      acc.extend([marker.lat, marker.lng]);
-      return acc;
-    }, new L.LatLngBounds());
-
     return `
-      var polygonPoints_${decodedZone} = ${JSON.stringify([[bounds.getNorth(), bounds.getWest()], [bounds.getNorth(), bounds.getEast()], [bounds.getSouth(), bounds.getEast()], [bounds.getSouth(), bounds.getWest()]])};
+      var polygonPoints_${decodedZone} = ${JSON.stringify(polygonCoordinates)};
       var polygon_${decodedZone} = L.polygon(polygonPoints_${decodedZone}, { color: 'red', fillOpacity: 0.3 }).addTo(map);
 
       ${encodedMarkers.map(marker => {
         const cityArray = marker.city.split(' ');
         return `
-          var marker_${decodedZone}_${cityArray.join('_')} = L.marker([${marker.lat}, ${marker.lng}]).addTo(map)
+          L.marker([${marker.lat}, ${marker.lng}]).addTo(map)
             .bindPopup('${cityArray.join(' ')}');
         `;
       }).join('')}

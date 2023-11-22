@@ -6,9 +6,10 @@
 2. fill the file.
 3. open cmd
 4. run `npm i -g yarn` (If you got yarn, you can skip this stage)
-5. step for ubuntu arm64 users **only!** run: `sudo apt install chromium-browser`
-6. run `yarn install` if you have any errors, [click here!](#red-alert-whatsapp-bot)
-7. run `yarn run start`
+5. for ubuntu user see: [Click here!](#ubuntu-installation)
+6. if on windows run `curl -o helper.bat https://raw.githubusercontent.com/arnon001/red-alert-whatsapp-bot/main/helper.bat` in cmd and then run the file helper.bat to save some time breaking the head
+7. run `yarn install` if you have any errors, [click here!](#installing-errors)
+8. run `yarn run start`
 
 
 ## Need the chat ID?
@@ -20,7 +21,13 @@ You are more than welcomed to preform pull requests.
 
 # Installing errors
 If you getting node-gyp errors make sure you installed visual studio 2022 community with desktop development with c++, and also python from the microsoft shop. [Click Here to it!](https://www.microsoft.com/store/productId/9PJPW5LDXLZ5?ocid=pdpshare)
+And also, follow this: [Click Me](https://github.com/Automattic/node-canvas/wiki/Installation:-Windows#2-installing-gtk-2) STEP 2 ONLY!
 
 for any other, please open an issue
+
+# Ubuntu Installation
+For all ubuntu run: `sudo apt-get install libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++`
+
+For ubuntu ARM064 run `sudo apt-get install chromium-browser`
 # TODO
 - [ ] Map
