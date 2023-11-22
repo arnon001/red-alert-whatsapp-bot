@@ -29,7 +29,6 @@
   "homepage": "https://github.com/arnon001/red-alert-whatsapp-bot#readme",
   "dependencies": {
     "fs": "^0.0.1-security",
-    "leaflet": "^1.9.4",
     "pikud-haoref-api": "^3.0.2",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
