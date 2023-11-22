@@ -87,7 +87,7 @@ async function generateLeafletMap(markers) {
         <div id="map" style="height: 100vh; width: 100%;"></div>
         <script>
           // Initialize the map
-          var map = L.map('map').setView([${markers[0].lat}, ${markers[0].lng}], 13); // Adjust the zoom level
+          var map = L.map('map').setView([${markers[0].lat}, ${markers[0].lng}], 9); // Adjust the zoom level
 
           // Add the OpenStreetMap tile layer
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
