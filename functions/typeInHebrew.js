@@ -1,6 +1,8 @@
 function typeInHebrew (type) {
     if(type = "missiles")
         return "ירי טילים ורקטות";
+    else if (type = "general")
+        return "אירוע כללי";
     else if (type = "radiologicalEvent")
         return "אירוע רדיולוגי";
     else if (type = "earthQuake")
