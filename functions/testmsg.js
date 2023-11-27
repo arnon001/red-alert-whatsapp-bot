@@ -1,25 +1,18 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const fs = require('fs');
-const pikudHaoref = require('pikud-haoref-api');
+const axios = require('axios');
 const config = require('../config.json');
-const { typeInHebrew } = require('./typeInHebrew.js');
 const { groupCities } = require('./citiesTime.js');
-const user = config.sendToUser
-var interval = 5000;    
+const groupId = config.sendToUser;
+var interval = 5000;
 
-
-// Load the session data if it has been previously saved
-// let sessionData;
-// if (fs.existsSync(SESSION_FILE_PATH)) {
-//   sessionData = JSON.parse(fs.readFileSync(SESSION_FILE_PATH, 'utf-8'));
-// }
 
 const client = new Client({
-    authStrategy: new LocalAuth()
+  authStrategy: new LocalAuth()
 });
- 
 
+var alertCheck = "";
 client.on('qr', (qrCode) => {
     qrcode.generate(qrCode, { small: true });
 });
@@ -29,51 +22,40 @@ client.on('qr', (qrCode) => {
     console.log('Red-Alerts Bot is ready!');
     poll();
   });
-client.initialize();
-var poll = function () {
+
+  var poll = function () {
+    const simualtion = {
+        title: "ירי טילים ורקטות",
+        data: ["נירים", "תל אביב - דרום העיר ויפו", "אילת", "משגב עם", "ירושלים - מערב", "ירושלים - דרום", "נחל עוז", "אופקים", "באר שבע - דרום"],
+        desc: "היכנסו למרחב המוגן ושהו בו כ10 דקות."
+    };
+    sendMessage(simualtion, config.sendToUser)
+
     // Optional Israeli proxy if running outside Israeli borders
 
-    // Get currently active alert
-    // Example response:
-    // { 
-    //    type: 'missiles', 
-    //    cities: ['תל אביב - מזרח', 'חיפה - כרמל ועיר תחתית', 'עין גדי'],
-    //    instructions: 'היכנסו למבנה, נעלו את הדלתות וסגרו את החלונות'
-    // }
-    pikudHaoref.getActiveAlert(function (err, alert) {
-        // Schedule polling in X millis
-        setTimeout(poll, interval);
-        
-        // Log errors
-        if (err) {
-            return console.log('Retrieving active alert failed: ', err);
-        } 
-        const test = {
-            type: 'missiles',
-            cities: ['זיקים', 'בארי', 'נחל עוז', 'קריית שמונה', 'מרגליות', 'חולון', 'אזור', 'בת-ים'],
-            instructions: 'היכנסו למבנה, נעלו את הדלתות וסגרו את החלונות',
-        };
-        sendMessage(test, user);
-        console.log("Please stop the program now, or it'll keep sending messages to the user every 5 seconds");
+    // Get currently active alert from kore.co.il
+    axios.get('https://www.kore.co.il/redAlert.json')
+        .then(response => {
+            const alert = response.data;
 
-        // Line break for readability
-        console.log();
+            // Schedule polling in X millis
+            setTimeout(poll, interval);
 
-        
-        if(!(JSON.parse(JSON.stringify(alert)).type === `none`) && alertCheck !== alert)
-        {
-            sendMessage(alert, groupId);
-            alertCheck = alert;
-        }
-        else if (JSON.parse(JSON.stringify(alert)).type === `none`)
-        {
-            alertCheck = "";
-        }
-    });
-    
-}  
-
-
+            if (alertCheck !== alert.data) {
+                sendMessage(alert, groupId);
+                alertCheck = alert.data;
+            }
+            else if(alert == null)
+            {
+                alertCheck = "";
+            }
+        })
+        .catch(error => {
+            console.log('Retrieving active alert failed: ', error);
+            // Schedule polling in X millis even if there's an error
+            setTimeout(poll, interval);
+        });
+};  
 
 function sendMessage(alert, groupId) {
     // Get current date and time
@@ -91,22 +73,23 @@ function sendMessage(alert, groupId) {
     });
 
     // Group cities based on time and zone
-    const groupedCities = groupCities(alert.cities);
+    const groupedCities = groupCities(alert.data);
 
     // Create the message
     let message = `*🔴 צבע אדום (${formattedDate} | ${formattedTime})*\n`;
-    message += `סוג ההתרעה: ${typeInHebrew(alert.type)}\n`;
+    message += `סוג ההתרעה: ${alert.title}\n`;
 
     // Add cities and towns
     message += `ערים וישובים:\n`;
     for (const [zone, cities] of Object.entries(groupedCities)) {
-        message += `\n• ${zone}: ${cities.map(city => `${city.city}`).join(', ')} (${cities[0].time})\n`;
-    }
+      message += `\n• ${zone}: ${cities.map(city => `${city.city}`).join(', ')} (${cities[0].time})\n`;
+  }
 
-    message += `\n${alert.instructions}`;
+    message += `\n${alert.desc}`;
 
     // Send the message
     client.sendMessage(groupId, message);
     console.log('Message sent successfully to group');
+    console.log();
 }
-
+client.initialize();

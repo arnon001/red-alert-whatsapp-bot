@@ -1,8 +1,7 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
-const pikudHaoref = require('pikud-haoref-api');
 const fs = require('fs');
-const { typeInHebrew } = require('./functions/typeInHebrew.js');
+const axios = require('axios');
 const config = require('./config.json');
 const { groupCities } = require('./functions/citiesTime.js');
 const groupId = config.groupId;
@@ -24,39 +23,40 @@ client.on('qr', (qrCode) => {
     poll();
   });
 
-var poll = function () {
+  var poll = function () {
+
+
+    const simualtion = {
+      title: "הודעת בדיקה!",
+      data: ["נירים", "תל אביב - דרום העיר ויפו"],
+      desc: "לא לעשות כלום, לשבת בשקט ולבכות על החיים"
+    };
+    sendMessage(simualtion, config.sendToUser)
     // Optional Israeli proxy if running outside Israeli borders
 
-    // Get currently active alert
-    // Example response:
-    // { 
-    //    type: 'missiles', 
-    //    cities: ['תל אביב - מזרח', 'חיפה - כרמל ועיר תחתית', 'עין גדי'],
-    //    instructions: 'היכנסו למבנה, נעלו את הדלתות וסגרו את החלונות'
-    // }
-    pikudHaoref.getActiveAlert(function (err, alert) {
-        // Schedule polling in X millis
-        setTimeout(poll, interval);
-        
-        // Log errors
-        if (err) {
-            return console.log('Retrieving active alert failed: ', err);
-        } 
+    // Get currently active alert from kore.co.il
+    axios.get('https://www.kore.co.il/redAlert.json')
+        .then(response => {
+            const alert = response.data;
 
-        
+            // Schedule polling in X millis
+            setTimeout(poll, interval);
 
-        
-        if(!(JSON.parse(JSON.stringify(alert)).type === `none`) && alertCheck !== alert)
-        {
-            sendMessage(alert, groupId);
-            alertCheck = alert;
-        }
-        else if (JSON.parse(JSON.stringify(alert)).type === `none`)
-        {
-            alertCheck = "";
-        }
-    });
-}  
+            if (alertCheck !== alert.data) {
+                sendMessage(alert, groupId);
+                alertCheck = alert.id;
+            }
+            else if (alert == null)
+            {
+              alertCheck = "";
+            }
+        })
+        .catch(error => {
+            console.log('Retrieving active alert failed: ', error);
+            // Schedule polling in X millis even if there's an error
+            setTimeout(poll, interval);
+        });
+};  
 
 function sendMessage(alert, groupId) {
     // Get current date and time
@@ -74,19 +74,19 @@ function sendMessage(alert, groupId) {
     });
 
     // Group cities based on time and zone
-    const groupedCities = groupCities(alert.cities);
+    const groupedCities = groupCities(alert.data);
 
     // Create the message
     let message = `*🔴 צבע אדום (${formattedDate} | ${formattedTime})*\n`;
-    message += `סוג ההתרעה: ${typeInHebrew(alert.type)}\n`;
+    message += `סוג ההתרעה: ${alert.title}\n`;
 
     // Add cities and towns
     message += `ערים וישובים:\n`;
     for (const [zone, cities] of Object.entries(groupedCities)) {
-        message += `\n• ${zone}: ${cities.map(city => `${city.city}`).join(', ')} (${cities[0].time})\n`;
-    }
+      message += `\n• ${zone}: ${cities.map(city => `${city.city}`).join(', ')} (${cities[0].time})\n`;
+  }
 
-    message += `\n${alert.instructions}`;
+    message += `\n${alert.desc}`;
 
     // Send the message
     client.sendMessage(groupId, message);
