@@ -6,9 +6,8 @@
 2. fill the file.
 3. open cmd
 4. for ubuntu user see: [Click here!](#ubuntu-installation)
-5. if on windows run `curl -o helper.bat https://raw.githubusercontent.com/arnon001/red-alert-whatsapp-bot/main/helper.bat` in cmd and then run the file helper.bat to save some time breaking the head
-6. run `npm install` if you have any errors, [click here!](#installing-errors)
-7. run `npm start`
+5. run `npm install` if you have any errors, [click here!](#installing-errors)
+6. run `npm start`
 
 
 ## Need the chat ID?
