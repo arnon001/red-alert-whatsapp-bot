@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node .",
     "getchatid": "node functions/getchatid.js",
-    "testmessage": "node functions/testmsg.js"
+    "testmessage": "node testmsg.js"
   },
   "repository": {
     "type": "git",
@@ -28,10 +28,21 @@
   },
   "homepage": "https://github.com/arnon001/red-alert-whatsapp-bot#readme",
   "dependencies": {
-    "@arnongpmc/static_map": "^1.0.0",
     "fs": "^0.0.1-security",
+    "jimp": "^0.22.10",
+    "path": "^0.12.7",
     "pikud-haoref-api": "^3.0.3",
     "qrcode-terminal": "^0.12.0",
+    "robust-point-in-polygon": "^1.0.3",
+    "staticmaps": "^1.12.0",
     "whatsapp-web.js": "^1.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.9",
+    "@types/staticmaps": "^1.12.3",
+    "@types/robust-point-in-polygon": "^1.0.4",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.3"
   }
 }
