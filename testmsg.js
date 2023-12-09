@@ -5,6 +5,7 @@ const pikudHaoref = require('pikud-haoref-api');
 const config = require('./config.json');
 const { typeInHebrew } = require('./functions/typeInHebrew.js');
 const { groupCities } = require('./functions/citiesTime.js');
+const { citiesJson } = require('./functions/checkPolygon.js');
 const user = config.sendToUser
 var interval = 5000;    
 
@@ -54,6 +55,7 @@ var poll = function () {
             instructions: 'היכנסו למבנה, נעלו את הדלתות וסגרו את החלונות',
         };
         sendMessage(test, user);
+        const image = getAlertsImage(citiesJson?.test.cities);
         console.log("Please stop the program now, or it'll keep sending messages to the user every 5 seconds");
 
         // Line break for readability
@@ -78,17 +80,17 @@ var poll = function () {
 function sendMessage(alert, groupId) {
     // Get current date and time
     const currentDate = new Date();
-    const formattedDate = currentDate.toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: '2-digit',
-      year: '2-digit',
-    });
+    // const formattedDate = currentDate.toLocaleDateString('en-GB', {
+    //   day: '2-digit',
+    //   month: '2-digit',
+    //   year: '2-digit',
+    // });
 
-    const formattedTime = currentDate.toLocaleTimeString('en-GB', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-    });
+    // const formattedTime = currentDate.toLocaleTimeString('en-GB', {
+    //   hour: '2-digit',
+    //   minute: '2-digit',
+    //   second: '2-digit',
+    // });
 
     // Group cities based on time and zone
     const groupedCities = groupCities(alert.cities);
