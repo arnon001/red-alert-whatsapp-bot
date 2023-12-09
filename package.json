@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node .",
     "getchatid": "node functions/getchatid.js",
-    "testmessage": "node testmsg.js"
+    "testmessage": "node testmsg.js",
+    "maptest": "tsc && node testmap.js"
   },
   "repository": {
     "type": "git",
