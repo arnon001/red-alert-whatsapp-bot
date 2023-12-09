@@ -59,38 +59,27 @@ var poll = function () {
 }  
 
 function sendMessage(alert, groupId) {
-    // Get current date and time
-    const currentDate = new Date();
-    const formattedDate = currentDate.toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: '2-digit',
-      year: '2-digit',
-    });
+  // Get current date and time
+  const date = new Date();
+  const formattedDate = format(date, "dd/MM/yyyy | HH:mm:ss");
 
-    const formattedTime = currentDate.toLocaleTimeString('en-GB', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-    });
+  // Group cities based on time and zone
+  const groupedCities = groupCities(alert.cities);
 
-    // Group cities based on time and zone
-    const groupedCities = groupCities(alert.cities);
+  // Create the message
+  let message = `*🔴 צבע אדום (${formattedDate})*\n`;
+  message += `סוג ההתרעה: ${typeInHebrew(alert.type)}\n`;
 
-    // Create the message
-    let message = `*🔴 צבע אדום (${formattedDate} | ${formattedTime})*\n`;
-    message += `סוג ההתרעה: ${typeInHebrew(alert.type)}\n`;
+  // Add cities and towns
+  message += `ערים וישובים:\n`;
+  for (const [zone, cities] of Object.entries(groupedCities)) {
+      message += `\n• ${zone}: ${cities.map(city => `${city.city}`).join(', ')} (${cities[0].time})\n`;
+  }
 
-    // Add cities and towns
-    message += `ערים וישובים:\n`;
-    for (const [zone, cities] of Object.entries(groupedCities)) {
-        message += `\n• ${zone}: ${cities.map(city => `${city.city}`).join(', ')} (${cities[0].time})\n`;
-    }
+  message += `\n${alert.instructions}`;
 
-    message += `\n${alert.instructions}`;
-
-    // Send the message
-    client.sendMessage(groupId, message);
-    console.log('Message sent successfully to group');
-    console.log();
+  // Send the message
+  client.sendMessage(groupId, message);
+  console.log('Message sent successfully to group');
 }
 client.initialize();
