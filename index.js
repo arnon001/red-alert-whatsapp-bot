@@ -46,7 +46,7 @@ var poll = function () {
         
 
         
-        if(!(JSON.parse(JSON.stringify(alert)).type === `none`) && alertCheck !== alert)
+        if(!(JSON.parse(JSON.stringify(alert)).type === `none`) && !(JSON.stringify(alert) === JSON.stringify(alertCheck)))
         {
             sendMessage(alert, groupId);
             alertCheck = alert;
