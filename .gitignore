@@ -4,3 +4,4 @@ node_modules
 session.json
 /.wwebjs_auth
 /temp
+/docs
