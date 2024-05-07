@@ -1,4 +1,5 @@
-const pikudHaorefCitiesTime = require('pikud-haoref-api/citiesArchive');
+// const pikudHaorefCitiesTime = require('pikud-haoref-api/citiesArchive');
+const pikudHaorefCitiesTime = require('pikud-haoref-api/cities.json');
 function groupCities(cities) {
     const groupedCities = {};
 

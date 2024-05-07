@@ -1,21 +1,15 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 
-const SESSION_FILE_PATH = '../session.json';
-
-// Load the session data if it has been previously saved
-let sessionData;
-if (fs.existsSync(SESSION_FILE_PATH)) {
-  sessionData = JSON.parse(fs.readFileSync(SESSION_FILE_PATH, 'utf-8'));
-}
+const wwebVersion = '2.2407.2';
 
 const client = new Client({
-  session: sessionData,
-  authTimeoutMs: 60 * 1000, // Increase the authTimeout to 1 minute (default is 30 seconds)
-  authStrategy: new LocalAuth({
-    session: sessionData,
-    sessionFile: SESSION_FILE_PATH,
-  }),
+  authStrategy: new LocalAuth(),
+
+  webVersionCache: {
+    type: 'remote',
+    remotePath: `https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/${wwebVersion}.html`,
+  }
 });
 
 client.on('qr', (qrCode) => {

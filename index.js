@@ -5,12 +5,21 @@ const fs = require('fs');
 const { typeInHebrew } = require('./functions/typeInHebrew.js');
 const config = require('./config.json');
 const { groupCities } = require('./functions/citiesTime.js');
+
 const groupId = config.groupId;
+
 var interval = 5000;
 
+// Whatsapp-Web.js Bug Fix:
+const wwebVersion = '2.2407.2';
 
 const client = new Client({
-  authStrategy: new LocalAuth()
+  authStrategy: new LocalAuth(),
+
+  webVersionCache: {
+    type: 'remote',
+    remotePath: `https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/${wwebVersion}.html`,
+}
 });
 
 var alertCheck = "";

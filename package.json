@@ -29,8 +29,9 @@
   },
   "homepage": "https://github.com/arnon001/red-alert-whatsapp-bot#readme",
   "dependencies": {
-
-    "pikud-haoref-api": "^3.0.3",
+    "date-fns": "^3.6.0",
+    "pikud-haoref-api": "github:eladnava/pikud-haoref-api",
+    "puppeteer": "^22.7.1",
     "qrcode-terminal": "^0.12.0",
     "whatsapp-web.js": "^1.23.0"
   }

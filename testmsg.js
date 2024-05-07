@@ -9,6 +9,8 @@ const { format } = require('date-fns');
 const user = config.sendToUser;
 var interval = 5000;    
 
+const wwebVersion = '2.2407.2';
+
 
 // Load the session data if it has been previously saved
 // let sessionData;
@@ -17,7 +19,11 @@ var interval = 5000;
 // }
 
 const client = new Client({
-    authStrategy: new LocalAuth()
+    authStrategy: new LocalAuth(),
+    webVersionCache: {
+        type: 'remote',
+        remotePath: `https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/${wwebVersion}.html`,
+    }
 });
  
 
