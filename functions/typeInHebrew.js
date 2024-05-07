@@ -1,30 +1,30 @@
 function typeInHebrew (type) {
     switch (type) {
-        case missiles:
+        case "missiles":
             return "ירי טילים ורקטות";
-        case general:
+        case "general":
             return "אירוע כללי";
-        case radiologicalEvent:
+        case "radiologicalEvent":
             return "אירוע רדיולוגי";
-        case earthQuake: 
+        case "earthQuake": 
             return "רעידת אדמה";
-        case tsunami:
+        case "tsunami":
             return "צונאמי";
-        case hostileAircraftIntrusion:
+        case "hostileAircraftIntrusion":
             return "חדירת כלי טייס עויינים";
-        case hazardousMaterials:
+        case "hazardousMaterials":
             return "חומרים מסוכנים";
-        case terroristInfiltration:
+        case "terroristInfiltration":
             return "חשש לחדירת מחבלים";
-        case missilesDrill:
+        case "missilesDrill":
             return "אימון של ירי טילים ורקטות";
-        case earthQuakeDrill:
+        case "earthQuakeDrill":
             return "אימון של רעידת אדמה";  
-        case hostileAircraftIntrusionDrill:
+        case "hostileAircraftIntrusionDrill":
             return "אימון של חדירת כלי טיס עויינים";
-        case hazardousMaterialsDrill:
+        case "hazardousMaterialsDrill":
             return "אימון של אירוע חומרים מסוכנים";
-        case terroristInfiltrationDrill:
+        case "terroristInfiltrationDrill":
             return "אימון של חדירת מחבלים";
         default:
             return "לא ידוע";
